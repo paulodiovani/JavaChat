@@ -6,8 +6,9 @@ import java.net.Socket;
 
 /**
  * Servidor de chat respons√°vel por ouvir conex√µes e guardar mensagens
+ * 
  * @author diovani
- *
+ * 
  */
 public class ServidorChat extends Thread {
 
@@ -17,8 +18,10 @@ public class ServidorChat extends Thread {
     private static ServidorChat instance;
 
     private Integer porta;
+    
+    private String nomeServidor;
 
-    private Socket client;
+    private Socket cliente;
 
     private ServerSocket server;
 
@@ -26,11 +29,11 @@ public class ServidorChat extends Thread {
      * Construtor privado para garantir o uso como singleton
      */
     private ServidorChat() {
-        //empty
     }
 
     /**
      * Obt√©m a instancia singleton do classe ou a cria
+     * 
      * @return ServidorChat
      */
     public static ServidorChat getInstance() {
@@ -43,22 +46,22 @@ public class ServidorChat extends Thread {
 
     /**
      * Inicia a thread para escutar a porta
+     * 
      * @param int porta
+     * @param String nomeServidor
+     *
      */
-    public void inicia(int porta) {
+    public void inicia(int porta, String nomeServidor) throws IOException {
         this.porta = porta;
+        this.nomeServidor = nomeServidor;
 
-        try {
-            server = new ServerSocket(this.porta);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        server = new ServerSocket(this.porta);
         this.start();
     }
 
     /**
      * Finaliza a thread a fecha o servidor
+     * 
      * @throws IOException
      */
     public void finaliza() throws IOException {
@@ -69,20 +72,22 @@ public class ServidorChat extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            try {
-                this.client = server.accept();
+        try {
+            while (true) {
+                // Espera uma conex„o de socket
+                Socket socketCliente = this.server.accept();
+                
+                //ApÛs receber a conex„o cria uma janela de chat para o servidor
+                new TelaChat(socketCliente, TelaChat.TpTela.SERVIDOR,nomeServidor);
+                System.out.println("Socket no servidor: " + socketCliente);
 
-                //Teste: Por hora, o server apenas recebe mensagems
-                MonitorChatConsole monitor = new MonitorChatConsole(this.client);
-                monitor.start();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
         }
     }
 
     public Socket getClient() {
-        return this.client;
+        return this.cliente;
     }
 }
