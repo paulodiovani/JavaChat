@@ -74,7 +74,7 @@ public class Main extends JFrame implements WindowListener {
     }
 
     /*
-     * Fim do construtor, in�cio dos m�todos para conex�o entre outros.
+     * Fim do construtor, início dos métodos para conexão entre outros.
      */
     protected void conectar() {
 
@@ -83,7 +83,7 @@ public class Main extends JFrame implements WindowListener {
             new TelaChat(socket, TelaChat.TpTela.CLIENTE, nome.getText());
             System.out.println("Meu socket: " + socket);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "N�o foi poss�vel conectar -> "
+            JOptionPane.showMessageDialog(this, "Não foi possível conectar -> "
                     + e.getMessage());
         }
     }
@@ -107,7 +107,7 @@ public class Main extends JFrame implements WindowListener {
                 btn_de_conexao.setEnabled(false);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,
-                        "N�o foi poss�vel iniciar o chat -> " + e.getMessage());
+                        "Não foi possível iniciar o chat -> " + e.getMessage());
             }
         } else {
             btn.setText("Iniciar Servidor");
@@ -117,11 +117,11 @@ public class Main extends JFrame implements WindowListener {
     }
 
     /*
-     * M�todo MAIN - in�cio do programa
+     * Método MAIN - início do programa
      */
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
 
-        System.out.println("In�cio");
+        System.out.println("Início");
         new Main();
     }
 
