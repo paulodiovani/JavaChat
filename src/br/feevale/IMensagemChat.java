@@ -1,5 +1,7 @@
 package br.feevale;
 
+import org.json.JSONException;
+
 /**
  * Interface que define as possíveis mensagens a serem enviadas entre servidor e cliente
  * @author diovani
@@ -22,8 +24,8 @@ public interface IMensagemChat {
         public static final int RESPOSTAENVIOFOTO    = 8;
     }
 
-    public void enviaHandshake(String nomeUsuario);
-    public void enviaMensagem(String mensagem);
+    public void enviaHandshake(String nomeUsuario) throws JSONException;
+    public void enviaMensagem(String mensagem) throws JSONException;
     public void chamaAtencao();
 
     public void informaDesconexao();

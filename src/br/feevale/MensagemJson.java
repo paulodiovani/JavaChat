@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MensagemJson implements IMensagemChat {
@@ -28,7 +29,7 @@ public class MensagemJson implements IMensagemChat {
     }
 
     @Override
-    public void enviaHandshake(String nomeUsuario) {
+    public void enviaHandshake(String nomeUsuario) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("tpTransacao", IMensagemChat.TipoMensagem.HANDSHAKE);
         json.put("nome", nomeUsuario);
@@ -37,7 +38,7 @@ public class MensagemJson implements IMensagemChat {
     }
 
     @Override
-    public void enviaMensagem(String mensagem) {
+    public void enviaMensagem(String mensagem) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("tpTransacao", IMensagemChat.TipoMensagem.MENSAGEM);
         json.put("mensagem", mensagem);
